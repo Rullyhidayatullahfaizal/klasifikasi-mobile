@@ -32,6 +32,9 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Login from './pages/Login';
+import Daftar from './pages/Daftar';
+import Klasifikasi from './pages/Klasifikasi';
 
 setupIonicReact();
 
@@ -44,6 +47,15 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
+        </Route>
+        <Route exact path="/login">
+          <Login></Login>
+        </Route>
+        <Route exact path="/daftar">
+          <Daftar></Daftar>
+        </Route>
+        <Route exact path="/klasifikasi">
+          <Klasifikasi></Klasifikasi>
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
