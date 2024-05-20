@@ -1,0 +1,7 @@
+{
+  "name": "klasifikasi object",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
