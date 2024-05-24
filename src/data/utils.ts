@@ -18,13 +18,22 @@ interface Field {
     message: string;
   }
   
-  export const validateForm = (fields: Field[]): Error[] => {
-    const errors: Error[] = [];
+  export const validateForm = (fields: any[]) => {
+    const errors = [];
+  
     fields.forEach(field => {
       if (!field.input.state.value) {
         errors.push({ id: field.id, message: `${field.label} is required` });
       }
     });
+  
+    const passwordField = fields.find(field => field.id === 'password');
+    const passwordConfirmField = fields.find(field => field.id === 'passwordConfirm');
+  
+    if (passwordField && passwordConfirmField && passwordField.input.state.value !== passwordConfirmField.input.state.value) {
+      errors.push({ id: 'passwordConfirm', message: 'Passwords do not match' });
+    }
+  
     return errors;
   };
   

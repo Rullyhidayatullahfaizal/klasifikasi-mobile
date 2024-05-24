@@ -14,7 +14,7 @@ export const useLoginFields = () => {
       label: 'Email',
       input: {
         props: {
-          type: 'email' as string, // Explicitly cast to TextFieldTypes
+          type: 'email' as 'email', // Explicitly cast to TextFieldTypes
           placeholder: 'Enter your email'
         },
         state: {
@@ -29,7 +29,7 @@ export const useLoginFields = () => {
       label: 'Password',
       input: {
         props: {
-          type: 'password' as string, // Explicitly cast to TextFieldTypes
+          type: 'password' as 'password', // Explicitly cast to TextFieldTypes
           placeholder: 'Enter your password'
         },
         state: {
@@ -44,77 +44,68 @@ export const useLoginFields = () => {
 
 
 export const useSignupFields = () => {
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setconfirmPassword] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
 
-  
-    const resetUsername = () => setUsername('');
-    const resetEmail = () => setEmail('');
-    const resetPassword = () => setPassword('');
-  
-    return [
-      {
-        id: 'username',
-        label: 'Username',
-        input: {
-          props: {
-            type: 'text' as 'text',
-            placeholder: 'Enter your username',
-          },
-          state: {
-            value: username,
-            setValue: setUsername,
-            reset: resetUsername,
-          },
+  return [
+    {
+      id: 'name',
+      label: 'Name',
+      input: {
+        props: {
+          type: 'text' as 'text',
+          placeholder: 'Enter your name',
+        },
+        state: {
+          value: name,
+          setValue: setName,
         },
       },
-      {
-        id: 'email',
-        label: 'Email',
-        input: {
-          props: {
-            type: 'email' as 'email',
-            placeholder: 'Enter your email',
-          },
-          state: {
-            value: email,
-            setValue: setEmail,
-            reset: resetEmail,
-          },
+    },
+    {
+      id: 'email',
+      label: 'Email',
+      input: {
+        props: {
+          type: 'email' as 'email',
+          placeholder: 'Enter your email',
+        },
+        state: {
+          value: email,
+          setValue: setEmail,
         },
       },
-      {
-        id: 'password',
-        label: 'Password',
-        input: {
-          props: {
-            type: 'password' as 'password',
-            placeholder: 'Enter your password',
-          },
-          state: {
-            value: password,
-            setValue: setPassword,
-            reset: resetPassword,
-          },
+    },
+    {
+      id: 'password',
+      label: 'Password',
+      input: {
+        props: {
+          type: 'password' as 'password',
+          placeholder: 'Enter your password',
+        },
+        state: {
+          value: password,
+          setValue: setPassword,
         },
       },
-      {
-        id: 'confirmPassword',
-        label: 'confirmPassword',
-        input: {
-          props: {
-            type: 'password' as 'password',
-            placeholder: 'Enter your password',
-          },
-          state: {
-            value: confirmPassword,
-            setValue: setconfirmPassword,
-            reset: resetPassword,
-          },
+    },
+    {
+      id: 'passwordConfirm',
+      label: 'Confirm Password',
+      input: {
+        props: {
+          type: 'password' as 'password',
+          placeholder: 'Confirm your password',
+        },
+        state: {
+          value: passwordConfirm,
+          setValue: setPasswordConfirm,
         },
       },
-    ];
-  };
+    },
+  ];
+};
   

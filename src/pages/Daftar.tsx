@@ -11,6 +11,7 @@ import {
   IonIcon,
   IonPage,
   IonRow,
+  IonToast,
   IonToolbar,
 } from '@ionic/react';
 import styles from './Daftar.module.scss';
@@ -23,22 +24,52 @@ import { Wave } from '../components/Wave';
 import { useEffect, useState } from 'react';
 import { validateForm } from '../data/utils';
 import { useHistory, useParams } from 'react-router';
+import axios from 'axios';
 
 const Signup: React.FC = () => {
   const params = useParams();
   const fields = useSignupFields();
   const [errors, setErrors] = useState<Array<{ id: string; message: string }>>([]);
   const history = useHistory()
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
   
-  const createAccount = () => {
+  const createAccount = async () => {
     const validationErrors = validateForm(fields);
     setErrors(validationErrors);
 
     if (!validationErrors.length) {
-      // Submit your form here
+      const payload = {
+        name: fields.find(field => field.id === 'name')?.input.state.value,
+        email: fields.find(field => field.id === 'email')?.input.state.value,
+        password: fields.find(field => field.id === 'password')?.input.state.value,
+        passwordConfirm: fields.find(field => field.id === 'passwordConfirm')?.input.state.value,
+      };
+
+      try {
+        const response = await axios.post('https://flip.backfliper.xyz/users/register', payload, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.data;
+
+        if (data.status === 'success') {
+          
+          // localStorage.setItem('token', data.content.token);
+      
+          history.push('/login');
+        } else {
+          setToastMessage(data.message ||'Registration failed.');
+          setShowToast(true);
+        }
+      } catch (error) {
+        setToastMessage('An error occurred. Please try again.');
+        setShowToast(true);
+      }
     }
   };
-
   const goHome = () => {
     history.push('/home'); // Navigasi ke halaman login
   };
@@ -92,6 +123,13 @@ const Signup: React.FC = () => {
           <Wave />
         </IonGrid>
       </IonFooter>
+
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={() => setShowToast(false)}
+        message={toastMessage}
+        duration={2000}
+      />
     </IonPage>
   );
 };

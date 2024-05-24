@@ -16,6 +16,9 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
     history.push('/daftar'); // Navigasi ke halaman login
   };
 
+  const goKlasifikasi = () => {
+    history.push('/klasifikasi'); // Navigasi ke halaman login
+  };
   return (
     <>
     <div id="container">
@@ -23,7 +26,7 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
       <p>You can determine the house category based on the image in this application <a target="_blank" rel="noopener noreferrer" href="#">application</a></p>
       <IonButton onClick={goToLogin}>Login</IonButton>
       <IonButton onClick={goToDaftar}>Daftar</IonButton>
-      <IonButton className="predictive" style={{ maxWidth: '400px' }} href='/login'>
+      <IonButton className="predictive" style={{ maxWidth: '400px' }} onClick={goKlasifikasi}>
       Do Your Home Classification Now
       </IonButton>
     </div>
