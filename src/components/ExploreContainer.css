@@ -25,3 +25,9 @@
   text-decoration: none;
 }
 
+
+.logout {
+  margin-top: 290px;
+  margin-left: 120px;
+  position: fixed;
+}

@@ -117,7 +117,7 @@ const Signup: React.FC = () => {
         </IonGrid>
       </IonContent>
 
-      <IonFooter>
+      <IonFooter className={styles.footer}>
         <IonGrid className="ion-no-margin ion-no-padding">
           <Action message="Already got an account?" text="Login" link="/login" />
           <Wave />

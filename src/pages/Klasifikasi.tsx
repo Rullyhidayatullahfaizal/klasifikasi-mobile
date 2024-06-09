@@ -10,20 +10,25 @@ import {
   IonList,
   IonItem,
   IonText,
+  IonButtons,
+  IonBackButton,
+  IonIcon,
 } from "@ionic/react";
 import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 import { useRef, useState } from "react";
 import axios from "axios";
 import "./Klasifikasi.css";
+import { arrowBack, shapesOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
 
 const Klasifikasi: React.FC = () => {
   const [photo, setPhoto] = useState<string | undefined>();
   const [showModal, setShowModal] = useState(false);
   const [showPredictionModal, setShowPredictionModal] = useState(false);
   const [prediction, setPrediction] = useState<any>(null);
+  const history = useHistory();
 
   const modal = useRef<HTMLIonModalElement>(null);
-
 
   const takePhoto = async (source: CameraSource) => {
     try {
@@ -66,12 +71,16 @@ const Klasifikasi: React.FC = () => {
       formData.append("imageFile", blob, "photo.jpg");
 
       // Send form data to the endpoint
-      const result = await axios.post("https://flip.backfliper.xyz/detects/file", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`, // Add the token here
-        },
-      });
+      const result = await axios.post(
+        "https://flip.backfliper.xyz/detects/file",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`, // Add the token here
+          },
+        }
+      );
 
       setPrediction(result.data);
       setShowPredictionModal(true); // Show the prediction modal
@@ -81,10 +90,19 @@ const Klasifikasi: React.FC = () => {
     }
   };
 
+  const goHome = () => {
+    history.push("/home"); // Navigasi ke halaman login
+  };
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonButton className="custom-button" onClick={goHome}>
+              <IonIcon icon={shapesOutline} />
+            </IonButton>
+          </IonButtons>
           <IonTitle>Klasifikasi</IonTitle>
         </IonToolbar>
       </IonHeader>
@@ -134,8 +152,12 @@ const Klasifikasi: React.FC = () => {
                 <IonText>
                   <h1 className="title">Deskripsi</h1>
                   <div className="hasil">
-                  <p className="label-prediksi">Label: {prediction.content.prediction.label}</p>
-                  <p className="value-prediksi">Value: {prediction.content.prediction.value}</p>
+                    <p className="label-prediksi">
+                      Label: {prediction.content.prediction.label}
+                    </p>
+                    <p className="value-prediksi">
+                      Value: {prediction.content.prediction.value}
+                    </p>
                   </div>
                 </IonText>
                 <hr />
@@ -151,7 +173,10 @@ const Klasifikasi: React.FC = () => {
                 </ul>
               </div>
             )}
-            <IonButton onClick={() => setShowPredictionModal(false)} className="button-prediksi">
+            <IonButton
+              onClick={() => setShowPredictionModal(false)}
+              className="button-prediksi"
+            >
               Close
             </IonButton>
           </IonContent>

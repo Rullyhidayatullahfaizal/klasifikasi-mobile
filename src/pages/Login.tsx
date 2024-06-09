@@ -102,7 +102,7 @@ const Login: React.FC = () => {
         </IonGrid>
       </IonContent>
 
-      <IonFooter>
+      <IonFooter className={styles.footer}>
         <IonGrid className="ion-no-margin ion-no-padding">
           <Action message="Don't have an account?" text="Sign up" link="/daftar" />
           <Wave />
